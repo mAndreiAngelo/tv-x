@@ -90,3 +90,8 @@ export function replaceCart(lines: CartLine[]) {
 export function clearCart() {
   write([]);
 }
+
+/** Current cart outside React (e.g. to send it to the server). */
+export function getCartSnapshot() {
+  return read();
+}

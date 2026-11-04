@@ -7,7 +7,8 @@ const NAV_LINKS = [
   { href: "/compara", label: "Compară" },
 ];
 
-export function Header() {
+export function Header({ user }: { user: { id: string; name: string } | null }) {
+  const firstName = user?.name.split(" ")[0];
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 px-4 md:h-16 md:flex-nowrap md:px-6">
@@ -31,9 +32,15 @@ export function Header() {
         </div>
 
         <div className="ml-auto flex items-center gap-4 text-sm font-medium">
-          <Link href="/cont" className="text-gray-700 hover:text-accent-600">
-            Contul meu
-          </Link>
+          {user ? (
+            <Link href="/cont" className="text-gray-700 hover:text-accent-600">
+              <span className="hidden sm:inline">Salut, {firstName} · </span>Contul meu
+            </Link>
+          ) : (
+            <Link href="/autentificare" className="text-gray-700 hover:text-accent-600">
+              Intră în cont
+            </Link>
+          )}
           <CartLink />
         </div>
       </div>

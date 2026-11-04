@@ -4,6 +4,8 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CompareBar } from "@/components/compare/CompareBar";
+import { CartSync } from "@/components/cart/CartSync";
+import { getCurrentUser } from "@/lib/session";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -19,7 +21,10 @@ export const metadata: Metadata = {
     "TV X – magazin demonstrativ de televizoare: LED, QLED, OLED și Mini LED, de la 32″ la 85″.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const current = await getCurrentUser();
+  const user = current ? { id: current.id, name: current.name } : null;
+
   return (
     <html lang="ro" className={`${inter.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
@@ -29,12 +34,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Sari la conținut
         </a>
-        <Header />
+        <Header user={user} />
         <main id="continut" className="flex-1">
           {children}
         </main>
         <Footer />
         <CompareBar />
+        <CartSync userId={user?.id ?? null} />
       </body>
     </html>
   );
