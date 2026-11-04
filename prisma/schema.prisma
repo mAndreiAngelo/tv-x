@@ -1,0 +1,168 @@
+// TV X – demo store schema. All monetary values are stored in bani (1 leu = 100 bani).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  addresses   Address[]
+  cartItems   CartItem[]
+  orders      Order[]
+  reviews     Review[]
+  reviewVotes ReviewVote[]
+  resetTokens PasswordResetToken[]
+}
+
+model Address {
+  id         String   @id @default(cuid())
+  userId     String
+  label      String
+  fullName   String
+  phone      String
+  street     String
+  city       String
+  county     String
+  postalCode String
+  isDefault  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  brand       String
+  model       String
+  description String
+  diagonal    Int // inches
+  resolution  String // HD | FULL_HD | 4K | 8K
+  panelType   String // LED | QLED | OLED | MINI_LED
+  refreshRate Int // Hz
+  smartOs     String // OS name or "Fără Smart TV"
+  price       Int // current price, VAT included, in bani
+  oldPrice    Int? // previous price when discounted
+  stock       Int
+  colorHue    Int // used to draw the placeholder image
+  featured    Boolean  @default(false)
+  specs       Json // full technical specification, grouped
+  ratingAvg   Float    @default(0)
+  reviewCount Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  reviews    Review[]
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+
+  @@index([brand])
+  @@index([diagonal])
+  @@index([price])
+}
+
+model Review {
+  id           String   @id @default(cuid())
+  userId       String
+  productId    String
+  rating       Int
+  text         String
+  helpfulCount Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  user    User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  votes   ReviewVote[]
+
+  @@unique([userId, productId])
+  @@index([productId])
+}
+
+model ReviewVote {
+  userId   String
+  reviewId String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  review Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@id([userId, reviewId])
+}
+
+model CartItem {
+  id        String @id @default(cuid())
+  userId    String
+  productId String
+  quantity  Int
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+}
+
+enum OrderStatus {
+  PROCESSING
+  PAID
+  SHIPPED
+  DELIVERED
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  number          Int         @unique
+  userId          String
+  status          OrderStatus @default(PROCESSING)
+  email           String
+  fullName        String
+  phone           String
+  street          String
+  city            String
+  county          String
+  postalCode      String
+  subtotal        Int
+  shippingCost    Int
+  total           Int
+  stripeSessionId String?     @unique
+  paidAt          DateTime?
+  createdAt       DateTime    @default(now())
+
+  user  User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items OrderItem[]
+
+  @@index([userId])
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  orderId   String
+  productId String
+  name      String // snapshot of the product name at purchase time
+  unitPrice Int // snapshot of the price at purchase time
+  quantity  Int
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@index([productId])
+}
+
+model PasswordResetToken {
+  token     String   @id
+  userId    String
+  expiresAt DateTime
+  usedAt    DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
