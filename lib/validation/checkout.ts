@@ -32,3 +32,6 @@ export const COUNTIES = [
   "Neamț", "Olt", "Prahova", "Satu Mare", "Sălaj", "Sibiu", "Suceava", "Teleorman", "Timiș", "Tulcea",
   "Vaslui", "Vâlcea", "Vrancea",
 ] as const;
+
+/** Maximum number of saved addresses per account. */
+export const MAX_ADDRESSES = 5;
