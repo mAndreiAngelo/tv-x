@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CartLink } from "@/components/cart/CartLink";
 import { SearchBox } from "./SearchBox";
 
 const NAV_LINKS = [
@@ -33,9 +34,7 @@ export function Header() {
           <Link href="/cont" className="text-gray-700 hover:text-accent-600">
             Contul meu
           </Link>
-          <Link href="/cos" className="rounded-lg bg-accent-600 px-4 py-2 text-white hover:bg-accent-700">
-            Coș
-          </Link>
+          <CartLink />
         </div>
       </div>
     </header>

@@ -95,7 +95,7 @@ export default async function ProductPage({ params }: PageProps<"/televizoare/[s
               <StockStatus stock={product.stock} />
             </div>
             <div className="mt-4">
-              <AddToCartButton productId={product.id} inStock={product.stock > 0} />
+              <AddToCartButton productId={product.id} stock={product.stock} />
             </div>
             <p className="mt-3 text-sm text-gray-600">
               {freeShipping
