@@ -27,7 +27,7 @@ export function FormField({ label, name, error, hint, id, className, ...props }:
         {...props}
       />
       {hint && !error && (
-        <p id={`${inputId}-hint`} className="mt-1 text-xs text-gray-500">
+        <p id={`${inputId}-hint`} className="mt-1 text-xs text-gray-600">
           {hint}
         </p>
       )}

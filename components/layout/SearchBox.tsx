@@ -104,11 +104,11 @@ export function SearchBox() {
           aria-controls={`${listId}-list`}
           aria-autocomplete="list"
           aria-activedescendant={active >= 0 ? `${listId}-opt-${active}` : undefined}
-          className="w-full rounded-lg border border-gray-300 bg-section py-2 pl-3 pr-10 text-sm text-gray-900 placeholder:text-gray-500 focus:border-accent-600 focus:bg-white"
+          className="w-full rounded-lg border border-gray-300 bg-section py-2 pl-3 pr-10 text-sm text-gray-900 placeholder:text-gray-600 focus:border-accent-600 focus:bg-white"
         />
         <button
           type="submit"
-          className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-gray-500 hover:text-accent-600"
+          className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-gray-600 hover:text-accent-600"
         >
           <span className="sr-only">Caută</span>
           <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
@@ -140,7 +140,7 @@ export function SearchBox() {
           >
             <span>
               <span className="block font-medium text-gray-900">{s.name}</span>
-              <span className="block text-xs text-gray-500">Model {s.model}</span>
+              <span className="block text-xs text-gray-600">Model {s.model}</span>
             </span>
             <span className="whitespace-nowrap font-semibold text-gray-900">{formatPrice(s.price)}</span>
           </li>

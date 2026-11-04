@@ -96,7 +96,7 @@ export function ReviewForm({ productId }: { productId: string }) {
             textError ? "border-red-600" : "border-gray-300"
           }`}
         />
-        <p id="review-text-help" className={`mt-1 text-sm ${textError ? "text-red-700" : "text-gray-500"}`}>
+        <p id="review-text-help" className={`mt-1 text-sm ${textError ? "text-red-700" : "text-gray-600"}`}>
           {textError ??
             (length < REVIEW_MIN_LENGTH
               ? `Minimum ${REVIEW_MIN_LENGTH} de caractere (mai ai ${REVIEW_MIN_LENGTH - length}).`

@@ -148,7 +148,7 @@ export function CartView() {
             <dd className="font-extrabold text-gray-900">{formatPrice(q.total)}</dd>
           </div>
         </dl>
-        <p className="mt-1 text-xs text-gray-500">Prețurile includ TVA.</p>
+        <p className="mt-1 text-xs text-gray-600">Prețurile includ TVA.</p>
 
         {remainingForFree > 0 && (
           <p className="mt-4 rounded-lg bg-white px-3 py-2 text-sm text-gray-700">

@@ -27,13 +27,13 @@ export default async function CheckoutPage() {
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
       <RefreshOnCartSync />
       <ol className="mb-6 flex flex-wrap gap-2 text-sm" aria-label="Pașii comenzii">
-        <li className="text-gray-500">1. Coș ✓</li>
+        <li className="text-gray-600">1. Coș ✓</li>
         <li aria-hidden="true" className="text-gray-400">→</li>
         <li aria-current="step" className="font-semibold text-accent-700">2. Date de livrare</li>
         <li aria-hidden="true" className="text-gray-400">→</li>
-        <li className="text-gray-500">3. Plată</li>
+        <li className="text-gray-600">3. Plată</li>
         <li aria-hidden="true" className="text-gray-400">→</li>
-        <li className="text-gray-500">4. Confirmare</li>
+        <li className="text-gray-600">4. Confirmare</li>
       </ol>
       <h1 className="mb-6 text-3xl font-extrabold tracking-tight text-gray-900">Date de livrare</h1>
 
@@ -107,7 +107,7 @@ export default async function CheckoutPage() {
                 <dd className="font-extrabold text-gray-900">{formatPrice(cart.total)}</dd>
               </div>
             </dl>
-            <p className="mt-1 text-xs text-gray-500">Prețurile includ TVA.</p>
+            <p className="mt-1 text-xs text-gray-600">Prețurile includ TVA.</p>
             <Link href="/cos" className="mt-4 block text-center text-sm font-medium text-accent-600 hover:underline">
               Modifică coșul
             </Link>

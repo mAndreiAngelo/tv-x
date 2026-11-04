@@ -44,7 +44,7 @@ export function ProductGallery({ name, brand, diagonal, hue }: ProductGalleryPro
           </li>
         ))}
       </ul>
-      <p className="mt-2 text-xs text-gray-500">Imaginile sunt ilustrative și generate local.</p>
+      <p className="mt-2 text-xs text-gray-600">Imaginile sunt ilustrative și generate local.</p>
     </div>
   );
 }

@@ -27,7 +27,7 @@ export function ReviewItem({ author, rating, text, createdAt, verified, helpfulC
             Cumpărător verificat
           </span>
         )}
-        <time dateTime={createdAt.toISOString()} className="text-sm text-gray-500">
+        <time dateTime={createdAt.toISOString()} className="text-sm text-gray-600">
           {formatDate(createdAt)}
         </time>
       </header>

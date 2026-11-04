@@ -82,7 +82,7 @@ export default async function ProductPage({ params, searchParams }: PageProps<"/
 
           <div className="mt-6 rounded-xl border border-gray-200 p-5">
             <Price price={product.price} oldPrice={product.oldPrice} size="lg" />
-            <p className="mt-1 text-xs text-gray-500">Prețul include TVA.</p>
+            <p className="mt-1 text-xs text-gray-600">Prețul include TVA.</p>
             <div className="mt-3">
               <StockStatus stock={product.stock} />
             </div>

@@ -214,7 +214,7 @@ function FilterGroup({ title, defaultOpen, children }: { title: string; defaultO
     <details open={defaultOpen} className="group border-b border-gray-200 py-3">
       <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-gray-900">
         {title}
-        <span aria-hidden="true" className="text-gray-500 transition group-open:rotate-180">
+        <span aria-hidden="true" className="text-gray-600 transition group-open:rotate-180">
           ▾
         </span>
       </summary>

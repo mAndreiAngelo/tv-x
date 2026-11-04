@@ -173,7 +173,7 @@ export function CheckoutForm({
       {paymentsReady ? (
         <div>
           <SubmitButton pending={pending || !canPay}>Continuă spre plată</SubmitButton>
-          <p className="mt-2 text-center text-xs text-gray-500">
+          <p className="mt-2 text-center text-xs text-gray-600">
             Vei fi redirecționat către Stripe Checkout (mod de test). Card de test: 4242 4242 4242 4242.
           </p>
         </div>

@@ -15,13 +15,13 @@ export function CompareBar() {
   return (
     <>
       {/* Spacer so the fixed bar never covers the end of the page */}
-      <div className="h-28" aria-hidden="true" />
+      <div className="h-36 sm:h-24" aria-hidden="true" />
       <section
         aria-label="Produse selectate pentru comparație"
         className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white/95 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] backdrop-blur"
       >
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3 sm:px-6">
-          <ul className="flex flex-1 gap-2 overflow-x-auto">
+          <ul className="flex w-full gap-2 overflow-x-auto sm:w-auto sm:flex-1">
             {items.map((item) => (
               <li
                 key={item.id}
@@ -32,7 +32,7 @@ export function CompareBar() {
                 <button
                   type="button"
                   onClick={() => removeFromCompare(item.id)}
-                  className="rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900"
+                  className="rounded p-1 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                 >
                   <span aria-hidden="true">×</span>
                   <span className="sr-only">Elimină {item.name} din comparație</span>
@@ -42,13 +42,13 @@ export function CompareBar() {
             {Array.from({ length: MAX_COMPARE - items.length }, (_, i) => (
               <li
                 key={`empty-${i}`}
-                className="hidden w-40 shrink-0 items-center justify-center rounded-lg border border-dashed border-gray-300 text-xs text-gray-500 sm:flex"
+                className="hidden w-40 shrink-0 items-center justify-center rounded-lg border border-dashed border-gray-300 text-xs text-gray-600 sm:flex"
               >
                 Adaugă un produs
               </li>
             ))}
           </ul>
-          <div className="flex items-center gap-3">
+          <div className="ml-auto flex items-center gap-3">
             <button type="button" onClick={clearCompare} className="text-sm font-medium text-gray-600 hover:text-gray-900">
               Golește
             </button>

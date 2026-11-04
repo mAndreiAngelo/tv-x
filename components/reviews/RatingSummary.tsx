@@ -11,7 +11,7 @@ export function RatingSummary({ average, count, distribution }: RatingSummaryPro
     <div className="rounded-xl bg-section p-6">
       <p className="text-5xl font-extrabold text-gray-900">
         {average.toLocaleString("ro-RO", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
-        <span className="text-lg font-medium text-gray-500"> / 5</span>
+        <span className="text-lg font-medium text-gray-600"> / 5</span>
       </p>
       <div className="mt-2">
         <Stars rating={average} size="md" />

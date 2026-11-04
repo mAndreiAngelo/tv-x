@@ -30,7 +30,10 @@ export default async function CatalogPage({ searchParams }: PageProps<"/televizo
           <FilterPanel filters={filters} />
         </aside>
 
-        <section aria-label="Produse">
+        <section aria-labelledby="lista-produse">
+          <h2 id="lista-produse" className="sr-only">
+            Lista de produse
+          </h2>
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-gray-600" role="status">
               {count === 1 ? "1 produs" : `${count} produse`}

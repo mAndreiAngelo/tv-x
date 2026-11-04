@@ -12,7 +12,7 @@ export function Price({ price, oldPrice, size = "md" }: PriceProps) {
     <div className="flex flex-col">
       {discount > 0 && oldPrice ? (
         <p className="flex items-center gap-2 text-sm">
-          <span className="text-gray-500 line-through">
+          <span className="text-gray-600 line-through">
             <span className="sr-only">Preț vechi: </span>
             {formatPrice(oldPrice)}
           </span>

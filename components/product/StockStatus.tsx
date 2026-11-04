@@ -1,6 +1,6 @@
 export function StockStatus({ stock }: { stock: number }) {
   if (stock <= 0) {
-    return <p className="text-sm font-medium text-gray-500">Stoc epuizat</p>;
+    return <p className="text-sm font-medium text-gray-600">Stoc epuizat</p>;
   }
   return (
     <p className="flex items-center gap-1.5 text-sm font-medium text-green-700">

@@ -22,7 +22,7 @@ export function HelpfulButton({ reviewId, initialVoted, initialCount, mode, logi
     count === 0 ? null : count === 1 ? "O persoană a găsit-o utilă" : `${count} persoane au găsit-o utilă`;
 
   if (mode === "own") {
-    return <span className="text-sm text-gray-500">Recenzia ta{countText ? ` · ${countText}` : ""}</span>;
+    return <span className="text-sm text-gray-600">Recenzia ta{countText ? ` · ${countText}` : ""}</span>;
   }
 
   if (mode === "guest") {

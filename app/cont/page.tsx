@@ -107,7 +107,7 @@ export default async function AccountPage() {
                         {ORDER_STATUS_LABELS[order.status]}
                       </span>
                       <span className="ml-auto font-bold text-gray-900">{formatPrice(order.total)}</span>
-                      <span aria-hidden="true" className="text-gray-500 transition group-open:rotate-180">
+                      <span aria-hidden="true" className="text-gray-600 transition group-open:rotate-180">
                         ▾
                       </span>
                     </summary>
@@ -171,7 +171,7 @@ export default async function AccountPage() {
                     {review.product.name}
                   </Link>
                   <Stars rating={review.rating} />
-                  <time dateTime={review.createdAt.toISOString()} className="text-sm text-gray-500">
+                  <time dateTime={review.createdAt.toISOString()} className="text-sm text-gray-600">
                     {formatDate(review.createdAt)}
                   </time>
                 </div>
