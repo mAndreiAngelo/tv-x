@@ -17,7 +17,13 @@ export function TvImage({ brand, diagonal, hue, label, view = "front", className
   const screenBottom = `hsl(${(hue + 40) % 360} 65% 22%)`;
 
   return (
-    <svg viewBox="0 0 400 300" role="img" aria-label={label} className={className}>
+    <svg
+      viewBox="0 0 400 300"
+      role={label ? "img" : undefined}
+      aria-label={label || undefined}
+      aria-hidden={label ? undefined : true}
+      className={className}
+    >
       <defs>
         <linearGradient id={`${id}-screen`} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor={screenTop} />
