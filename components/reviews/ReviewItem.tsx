@@ -9,7 +9,7 @@ type ReviewItemProps = {
   createdAt: Date;
   verified: boolean;
   helpfulCount: number;
-  /** Optional slot for the "Util" button (added with the reviews feature). */
+  /** Optional slot for the "Util" button; replaces the plain helpful count. */
   actions?: ReactNode;
 };
 
@@ -32,11 +32,11 @@ export function ReviewItem({ author, rating, text, createdAt, verified, helpfulC
         </time>
       </header>
       <p className="mt-2 leading-relaxed text-gray-800">{text}</p>
-      <footer className="mt-2 flex items-center gap-3 text-sm text-gray-600">
-        {actions}
-        {helpfulCount > 0 && (
-          <span>{helpfulCount === 1 ? "O persoană a găsit utilă" : `${helpfulCount} persoane au găsit-o utilă`}</span>
-        )}
+      <footer className="mt-3 flex items-center gap-3 text-sm text-gray-600">
+        {actions ??
+          (helpfulCount > 0 && (
+            <span>{helpfulCount === 1 ? "O persoană a găsit-o utilă" : `${helpfulCount} persoane au găsit-o utilă`}</span>
+          ))}
       </footer>
     </article>
   );

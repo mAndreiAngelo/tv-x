@@ -8,17 +8,12 @@ import { ProductGrid } from "@/components/product/ProductGrid";
 import { SpecsTable } from "@/components/product/SpecsTable";
 import { Stars } from "@/components/product/Stars";
 import { StockStatus } from "@/components/product/StockStatus";
-import { RatingSummary } from "@/components/reviews/RatingSummary";
-import { ReviewItem } from "@/components/reviews/ReviewItem";
+import { ReviewsSection } from "@/components/reviews/ReviewsSection";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FREE_SHIPPING_THRESHOLD, SHIPPING_COST, panelLabel, resolutionLabel } from "@/lib/catalog";
 import { formatPrice } from "@/lib/format";
-import {
-  getProductBySlug,
-  getProductReviews,
-  getRatingDistribution,
-  getSimilarProducts,
-} from "@/lib/products";
+import { getProductBySlug, getSimilarProducts } from "@/lib/products";
+import { getCurrentUser } from "@/lib/session";
 
 export async function generateMetadata({ params }: PageProps<"/televizoare/[slug]">): Promise<Metadata> {
   const { slug } = await params;
@@ -27,16 +22,13 @@ export async function generateMetadata({ params }: PageProps<"/televizoare/[slug
   return { title: product.name, description: product.description };
 }
 
-export default async function ProductPage({ params }: PageProps<"/televizoare/[slug]">) {
+export default async function ProductPage({ params, searchParams }: PageProps<"/televizoare/[slug]">) {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  const [distribution, reviews, similar] = await Promise.all([
-    getRatingDistribution(product.id),
-    getProductReviews(product.id),
-    getSimilarProducts(product),
-  ]);
+  const reviewSort = (await searchParams).recenzii === "utile" ? "utile" : "noi";
+  const [similar, user] = await Promise.all([getSimilarProducts(product), getCurrentUser()]);
 
   const highlights = [
     `Diagonală ${product.diagonal}″ (${Math.round(product.diagonal * 2.54)} cm)`,
@@ -113,31 +105,7 @@ export default async function ProductPage({ params }: PageProps<"/televizoare/[s
         <SpecsTable specs={product.specs} />
       </section>
 
-      <section aria-labelledby="recenzii-titlu" id="recenzii" className="mt-14 scroll-mt-24">
-        <SectionHeading id="recenzii-titlu" title="Recenzii" />
-        <div className="grid gap-8 lg:grid-cols-[320px_1fr]">
-          <div>
-            <RatingSummary average={product.ratingAvg} count={product.reviewCount} distribution={distribution} />
-          </div>
-          <div>
-            {reviews.length ? (
-              reviews.map((review) => (
-                <ReviewItem
-                  key={review.id}
-                  author={review.user.name}
-                  rating={review.rating}
-                  text={review.text}
-                  createdAt={review.createdAt}
-                  verified={review.verified}
-                  helpfulCount={review.helpfulCount}
-                />
-              ))
-            ) : (
-              <p className="text-gray-600">Acest produs nu are încă recenzii.</p>
-            )}
-          </div>
-        </div>
-      </section>
+      <ReviewsSection product={product} sort={reviewSort} user={user} />
 
       {similar.length > 0 && (
         <section aria-labelledby="similare" className="mt-14">

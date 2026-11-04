@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { startTransition, useActionState, useEffect, useRef, useState, type FormEvent } from "react";
 import { startCheckoutAction, type CheckoutState } from "@/app/checkout/actions";
 import { FormField, FormMessage, SubmitButton } from "@/components/ui/FormField";
 import { COUNTIES } from "@/lib/validation/checkout";
@@ -43,6 +43,13 @@ export function CheckoutForm({
 
   const shown = state.values && !pending ? { ...values, ...state.values } : values;
 
+  // Submit manually: the automatic form reset of React form actions would uncheck the address choice
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    startTransition(() => action(data));
+  }
+
   function pickAddress(id: string) {
     setSelected(id);
     const address = addresses.find((a) => a.id === id);
@@ -50,7 +57,7 @@ export function CheckoutForm({
   }
 
   return (
-    <form action={action} className="space-y-5" noValidate>
+    <form onSubmit={onSubmit} className="space-y-5" noValidate>
       {state.error && (
         <div ref={errorRef} tabIndex={-1}>
           <FormMessage type="error">{state.error}</FormMessage>
