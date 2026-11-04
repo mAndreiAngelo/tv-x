@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { loadServerCart, mergeGuestCart, saveServerCart } from "@/app/cos/actions";
-import { clearCart, getCartSnapshot, replaceCart, useCartLines } from "@/lib/cart-store";
+import { clearCart, getCartSnapshot, markCartSynced, replaceCart, useCartLines } from "@/lib/cart-store";
 
 const OWNER_KEY = "tvx-cart-owner";
 
@@ -40,6 +40,7 @@ export function CartSync({ userId }: { userId: string | null }) {
       replaceCart(result);
       localStorage.setItem(OWNER_KEY, userId);
       ready.current = true;
+      markCartSynced();
     })();
 
     return () => {
@@ -49,8 +50,9 @@ export function CartSync({ userId }: { userId: string | null }) {
 
   useEffect(() => {
     if (!userId || !ready.current) return;
-    const timer = setTimeout(() => {
-      void saveServerCart(lines);
+    const timer = setTimeout(async () => {
+      await saveServerCart(lines);
+      markCartSynced();
     }, 400);
     return () => clearTimeout(timer);
   }, [lines, userId]);

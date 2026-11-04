@@ -95,3 +95,26 @@ export function clearCart() {
 export function getCartSnapshot() {
   return read();
 }
+
+// ---------------------------------------------------------------------------
+// "Saved on the server" signal, used by pages that read the database cart
+// ---------------------------------------------------------------------------
+
+let syncVersion = 0;
+const syncListeners = new Set<() => void>();
+
+export function markCartSynced() {
+  syncVersion++;
+  syncListeners.forEach((listener) => listener());
+}
+
+export function useCartSyncVersion() {
+  return useSyncExternalStore(
+    (listener) => {
+      syncListeners.add(listener);
+      return () => syncListeners.delete(listener);
+    },
+    () => syncVersion,
+    () => 0,
+  );
+}
