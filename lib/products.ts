@@ -190,3 +190,17 @@ export async function getSimilarProducts(
     .slice(0, limit)
     .map(({ c }) => c);
 }
+
+// ---------------------------------------------------------------------------
+// Comparison
+// ---------------------------------------------------------------------------
+
+export async function getProductsForComparison(slugs: string[]) {
+  await connection();
+  const products = await prisma.product.findMany({ where: { slug: { in: slugs.slice(0, 3) } } });
+  // Keep the order chosen by the user
+  return slugs
+    .map((slug) => products.find((p) => p.slug === slug))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p))
+    .map((p) => ({ ...p, specs: p.specs as ProductSpecs }));
+}

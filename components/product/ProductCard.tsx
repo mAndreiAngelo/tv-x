@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { panelLabel, resolutionLabel } from "@/lib/catalog";
+import { CompareButton } from "@/components/compare/CompareButton";
 import { discountPercent } from "@/lib/format";
 import type { ProductCardData } from "@/lib/products";
 import { Price } from "./Price";
@@ -43,6 +44,18 @@ export function ProductCard({ product }: { product: ProductCardData }) {
           <Price price={product.price} oldPrice={product.oldPrice} />
         </div>
         <StockStatus stock={product.stock} />
+        <div className="border-t border-gray-100 pt-2">
+          <CompareButton
+            item={{
+              id: product.id,
+              slug: product.slug,
+              name: product.name,
+              brand: product.brand,
+              diagonal: product.diagonal,
+              colorHue: product.colorHue,
+            }}
+          />
+        </div>
       </div>
     </article>
   );
