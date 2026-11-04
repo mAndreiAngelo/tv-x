@@ -8,12 +8,15 @@ const NAV_LINKS = [
 export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 sm:px-6">
-        <Link href="/" className="text-xl font-extrabold tracking-tight text-gray-900">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 px-4 sm:h-16 sm:flex-nowrap sm:px-6">
+        <Link href="/" className="py-3 text-xl font-extrabold tracking-tight text-gray-900 sm:py-0">
           TV <span className="text-accent-600">X</span>
         </Link>
 
-        <nav aria-label="Navigare principală" className="hidden gap-5 text-sm font-medium sm:flex">
+        <nav
+          aria-label="Navigare principală"
+          className="order-last flex w-full gap-5 border-t border-gray-100 py-2 text-sm font-medium sm:order-none sm:w-auto sm:border-0 sm:py-0"
+        >
           {NAV_LINKS.map((link) => (
             <Link key={link.href} href={link.href} className="text-gray-700 hover:text-accent-600">
               {link.label}
